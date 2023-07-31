@@ -28,14 +28,14 @@ const Layout: FC<PropsWithChildren<Props>> = ({children, ...props}) => (
                 bgColor={useColorModeValue("lingva.100", "lingva.900")}
             />
 
-            <div style={{background: "#e3fbe3", padding: "15px"}}>
-                Original server <a href="lingva.ml">lingva.ml</a> is down for a long time so I decided to create
-                fallback site for my pet projects. Sorry for using ads but I need at least 7$/mo to maintain server.
-                Also you can donate me at <a style={{background: "#90ee90", padding: "5px", margin: "5px"}}
+            <div style={{background: "#e3fbe3", padding: "10px", margin: "5px 10px", font-size: "12px"}}>
+                Original server <a href="lingva.ml">lingva.ml</a> is down so I've created
+                fallback for me. Sorry for ads but I need 7$/mo to maintain server.
+                Also you can donate me at <a style={{background: "#90ee90", padding: "3px"}}
                                              href="https://yoomoney.ru/to/41001998657825">DONATE</a>
             </div>
-            <div>
-                <div id="yandex_rtb_R-A-2555887-1"></div>
+            <div style={{margin-top: "0"}}>
+                <div id="yandex_rtb_R-A-2555887-1" style={{max-height:"200px"}}></div>
                 <script
                     dangerouslySetInnerHTML={{
                         __html: `
