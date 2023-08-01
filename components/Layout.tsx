@@ -31,7 +31,7 @@ const Layout: FC<PropsWithChildren<Props>> = ({children, ...props}) => (
                 <div style={{background: '#e3fbe3', padding: '10px', margin: '5px 10px', fontSize: '12px'}}>
                     Original server <a href="lingva.ml">lingva.ml</a> is down so I've created fallback for me. Sorry
                     for ads but I need 7$/mo to maintain server. Also you can donate me at
-                    <a style={{background: '#90ee90', padding: '3px'}}
+                    <a style={{background: '#90ee90', padding: '3px', marginLeft: '5px'}}
                        href="https://yoomoney.ru/to/41001998657825">DONATE</a>
                 </div>
                 <div style={{marginTop: '0'}}>
