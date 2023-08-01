@@ -34,6 +34,17 @@ const Layout: FC<PropsWithChildren<Props>> = ({children, ...props}) => (
                     <a style={{background: '#90ee90', padding: '3px', marginLeft: '5px'}}
                        href="https://yoomoney.ru/to/41001998657825">DONATE</a>
                 </div>
+
+                <Flex
+                    as="main"
+                    id="main"
+                    flexGrow={1}
+                    w="full"
+                    {...props}
+                >
+                    {children}
+                </Flex>
+
                 <div style={{marginTop: '0'}}>
                     <div id="yandex_rtb_R-A-2555887-1" style={{maxHeight: '200px'}}>
                         Please allow ad-block to display ads to allow me maintain server for you
@@ -57,16 +68,6 @@ const Layout: FC<PropsWithChildren<Props>> = ({children, ...props}) => (
                         }}
                     ></script>
                 </div>
-
-                <Flex
-                    as="main"
-                    id="main"
-                    flexGrow={1}
-                    w="full"
-                    {...props}
-                >
-                    {children}
-                </Flex>
 
                 <Footer
                     bgColor={useColorModeValue("lingva.100", "lingva.900")}
