@@ -46,7 +46,7 @@ const Layout: FC<PropsWithChildren<Props>> = ({children, ...props}) => (
                 </Flex>
 
                 <div style={{marginTop: '0'}}>
-                    <div id="yandex_rtb_R-A-2555887-1" style={{maxHeight: '200px'}}>
+                    <div id="yandex_rtb_R-A-3533002-1" style={{maxHeight: '200px'}}>
                         Please allow ad-block to display ads to allow me maintain server for you
                     </div>
                     <script
@@ -60,10 +60,11 @@ const Layout: FC<PropsWithChildren<Props>> = ({children, ...props}) => (
                             
                             window.yaContextCb.push(() => {
                                 Ya.Context.AdvManager.render({
-                                    "blockId": "R-A-2555887-1",
-                                    "renderTo": "yandex_rtb_R-A-2555887-1"
+                                    "blockId": "R-A-3533002-1",
+                                    "renderTo": "yandex_rtb_R-A-3533002-1"
                                 });
                             });
+         
                         `
                         }}
                     ></script>
