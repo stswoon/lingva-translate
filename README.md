@@ -14,7 +14,7 @@ Alternative front-end for Google Translate, serving as a Free and Open Source tr
 
 ## How does it work?
 
-Inspired by projects like [NewPipe](https://github.com/TeamNewPipe/NewPipe), [Nitter](https://github.com/zedeus/nitter), [Invidious](https://github.com/iv-org/invidious) or [Bibliogram](https://git.sr.ht/~cadence/bibliogram), *Lingva* scrapes through Google Translate and retrieves the translation without directly accessing any Google-related service, preventing them from tracking.
+Inspired by projects like [NewPipe](https://github.com/TeamNewPipe/NewPipe), [Nitter](https://github.com/zedeus/nitter), [Invidious](https://github.com/iv-org/invidious) or [Bibliogram](https://git.sr.ht/~cadence/bibliogram), *Lingva* originally scraped through Google Translate to retrieve the translation without directly accessing any Google-related service. As Google has blocked that scraping, text translations are now fetched from a self-hosted [LibreTranslate](https://github.com/LibreTranslate/LibreTranslate) instance (see [Deployment](#deployment)), while language metadata and audio still come from the original scraper.
 
 For this purpose, *Lingva* is built, among others, with the following Open Source resources:
 
@@ -38,6 +38,32 @@ Optionally, there are other environment variables available:
 + `NEXT_PUBLIC_FORCE_DEFAULT_THEME`: Force a certain theme over the system preference set by the user. The accepted values are `light` and `dark`.
 + `NEXT_PUBLIC_DEFAULT_SOURCE_LANG`: Set an initial *source* language instead of the default `auto`.
 + `NEXT_PUBLIC_DEFAULT_TARGET_LANG`: Set an initial *target* language instead of the default `en`.
++ `LIBRE_TRANSLATE_URL`: URL of the LibreTranslate instance translations are fetched from. Defaults to `http://127.0.0.1:5000`.
++ `LIBRE_TRANSLATE_API_KEY`: API key for that LibreTranslate instance, only needed if it is started with `LT_API_KEYS`.
+
+### LibreTranslate
+
+Text translations are handled by a self-hosted [LibreTranslate](https://github.com/LibreTranslate/LibreTranslate) instance, so it has to be running for translations to work. The easiest way to run it is with the included Compose file:
+
+```bash
+docker compose up -d libretranslate
+```
+
+The service listens on port 5000 and persists downloaded models in the `libretranslate-models` volume. Point the app to it by setting `LIBRE_TRANSLATE_URL=http://127.0.0.1:5000` in `.env.local` (see `.env.example`).
+
+To run both the app and LibreTranslate in Docker with a single command:
+
+```bash
+docker compose up -d --build
+```
+
+Lingva will then be available on http://localhost:3000. Only the languages listed in `LT_LOAD_ONLY` are loaded on startup (default `en,ru`); add every language you are going to translate to/from, for example in `.env`:
+
+```
+LT_LOAD_ONLY=en,ru,uk,de,fr,es
+```
+
+Note that LibreTranslate supports fewer languages than Google Translate, so not every language in the selector is guaranteed to work.
 
 ### Docker
 

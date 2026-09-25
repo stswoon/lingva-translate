@@ -1,0 +1,46 @@
+services:
+
+  libretranslate:
+    container_name: lingva-libretranslate
+    image: libretranslate/libretranslate:latest
+    restart: unless-stopped
+    environment:
+      # Comma-separated list of languages loaded on startup.
+      # Add every language you are going to translate to/from, e.g. "en,ru,uk,de,fr,es"
+      - LT_LOAD_ONLY=${LT_LOAD_ONLY:-en,ru}
+    ports:
+      - "${LIBRE_TRANSLATE_PORT:-5000}:5000"
+    volumes:
+      - libretranslate-models:/home/libretranslate/.local
+    healthcheck:
+      test: ["CMD-SHELL", "./venv/bin/python scripts/healthcheck.py"]
+      interval: 10s
+      timeout: 4s
+      retries: 12
+      start_period: 300s
+
+  lingva:
+    container_name: lingva
+    build: .
+    restart: unless-stopped
+    depends_on:
+      libretranslate:
+        condition: service_healthy
+    environment:
+      - site_domain=${SITE_DOMAIN:-localhost:3000}
+      - force_default_theme=${FORCE_DEFAULT_THEME:-}
+      - default_source_lang=${DEFAULT_SOURCE_LANG:-auto}
+      - default_target_lang=${DEFAULT_TARGET_LANG:-en}
+      - LIBRE_TRANSLATE_URL=http://libretranslate:5000
+      - LIBRE_TRANSLATE_API_KEY=${LIBRE_TRANSLATE_API_KEY:-}
+    ports:
+      - "${LINGVA_PORT:-3000}:3001"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 120s
+
+volumes:
+  libretranslate-models:
