@@ -1,5 +1,5 @@
 # Single-container image bundling the Next.js app and a self-hosted LibreTranslate
-FROM libretranslate/libretranslate:1.9.6
+FROM libretranslate/libretranslate:v1.9.6
 
 USER root
 
